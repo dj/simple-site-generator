@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.url.com/blog/deconstructing-the-three-js-phong-shader/"/>
     <id>http://blog.url.com/blog/deconstructing-the-three-js-phong-shader/</id>
     <published>2014-10-30T13:30:00-04:00</published>
-    <updated>2014-10-30T22:06:33-04:00</updated>
+    <updated>2014-11-01T14:15:49-04:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -40,8 +40,9 @@
 &lt;/pre&gt;
 &lt;p&gt;Now we have a dimly lit sphere, but every pixel has the same color value.&lt;/p&gt;
 
-&lt;p&gt;&lt;a title="Unshaded Sphere" href="http://www.google.com"&gt;&lt;img alt="Unshaded sphere demo" src="/images/2014-10-30-deconstructing-the-three-js-phong-shader/sphere-1.png" /&gt;&lt;/a&gt;
-&lt;a title="Unshaded Sphere" href="http://www.google.com"&gt;Demo&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a title="Unshaded Sphere" href="http://www.google.com"&gt;&lt;img alt="Unshaded sphere demo" src="/images/2014-10-30-deconstructing-the-three-js-phong-shader/sphere-1.png" /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a title="Unshaded Sphere" href="http://www.google.com"&gt;Demo&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;I&amp;#39;ve included a Three.js plugin that gives you orbital mouse controls similar to most 3d modelling programs. You can zoom or out, but no matter what angle you look at the sphere, it pretty much looks flat.&lt;/p&gt;
 
@@ -55,8 +56,9 @@
 &lt;li&gt;[The specular reflection] exhibited by shiny surfaces. Phong informally observed that shiny surfaces have small, intense specular highlights that fade away quickly (the &amp;quot;white&amp;quot; highlights on shiny surfaces in computer generated graphics).&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;a title="Phong components - Wikipedia" href="http://en.wikipedia.org/wiki/Phong_shading#mediaviewer/File:Phong_components_version_4.png"&gt;&lt;img alt="Phong components" src="/images/2014-10-30-deconstructing-the-three-js-phong-shader/phong-components.png" /&gt;&lt;/a&gt;
-&lt;a title="Phong components - Wikipedia" href="http://en.wikipedia.org/wiki/Phong_shading#mediaviewer/File:Phong_components_version_4.png"&gt;Phong Components&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a title="Phong components - Wikipedia" href="http://en.wikipedia.org/wiki/Phong_shading#mediaviewer/File:Phong_components_version_4.png"&gt;&lt;img alt="Phong components" src="/images/2014-10-30-deconstructing-the-three-js-phong-shader/phong-components.png" /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a title="Phong components - Wikipedia" href="http://en.wikipedia.org/wiki/Phong_shading#mediaviewer/File:Phong_components_version_4.png"&gt;Phong Components&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2&gt;Phong Shading in Three.js&lt;/h2&gt;
 
@@ -85,8 +87,9 @@
 &lt;span class="nx"&gt;sphere&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;THREE&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Mesh&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;geometry&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;phongShader&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="nx"&gt;scene&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;sphere&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;
-&lt;p&gt;&lt;a title="Shaded Sphere" href="http://www.google.com"&gt;&lt;img alt="Shaded sphere demo" src="/images/2014-10-30-deconstructing-the-three-js-phong-shader/sphere-2.png" /&gt;&lt;/a&gt;
-&lt;a title="Shaded Sphere" href="http://www.google.com"&gt;Demo&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a title="Shaded Sphere" href="http://www.google.com"&gt;&lt;img alt="Shaded sphere demo" src="/images/2014-10-30-deconstructing-the-three-js-phong-shader/sphere-2.png" /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a title="Shaded Sphere" href="http://www.google.com"&gt;Demo&lt;/a&gt;&lt;/p&gt;
 </content>
   </entry>
   <entry>

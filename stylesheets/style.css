@@ -490,19 +490,14 @@ body {
 }
 
 /* Style for mobile and small screens ------------ */
-@media only screen and (max-width: 764px) {
+@media only screen and (max-width: 800px) {
   body {
     font-size: 16px;
   }
+
   #container {
     margin-left: 1em;
     max-width: 95%;
-  }
-}
-
-@media only screen and (max-width: 500px) {
-  body {
-    font-size: 14px;
   }
 
   .post-body .left-col,
@@ -516,6 +511,12 @@ body {
   .post-body .main-col {
     float: none;
     max-width: 95%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    font-size: 14px;
   }
 }
 
