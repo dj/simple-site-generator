@@ -97,7 +97,7 @@
     <link rel="alternate" href="http://blog.url.com/blog/nothing-to-see-here/"/>
     <id>http://blog.url.com/blog/nothing-to-see-here/</id>
     <published>2014-10-23T18:16:00-04:00</published>
-    <updated>2014-10-23T22:54:28-04:00</updated>
+    <updated>2014-11-01T17:56:15-04:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -110,20 +110,6 @@
 &lt;li&gt;He can be emailed &lt;a href="mailto:danieljayhartman+contact@gmail.com"&gt;here.&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;His resumé can be viewed &lt;a href="/resume.pdf"&gt;here.&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Writing an OSL Shader for Blender</title>
-    <link rel="alternate" href="http://blog.url.com/blog/example-article/"/>
-    <id>http://blog.url.com/blog/example-article/</id>
-    <published>2011-12-31T19:00:00-05:00</published>
-    <updated>2014-10-30T14:03:51-04:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;p&gt;Open Shading Language (OSL) is a small but rich language for programmable shading in advanced renderers and other applications, ideal for describing materials, lights, displacement, and pattern generation.&lt;/p&gt;
-
-&lt;p&gt;The OSL code is distributed under the &amp;quot;New BSD&amp;quot; license (see the &amp;quot;LICENSE&amp;quot; file that comes with the distribution), and the documentation under the Creative Commons Attribution 3.0 Unported License (http://creativecommons.org/licenses/by/3.0/). In short, you are free to use OSL in your own applications, whether they are free or commercial, open or proprietary, as well as to modify the OSL code and documentation as you desire, provided that you retain the original copyright notices as described in the license.&lt;/p&gt;
 </content>
   </entry>
 </feed>
