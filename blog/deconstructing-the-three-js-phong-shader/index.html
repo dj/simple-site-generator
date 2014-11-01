@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <title>DJH - Deconstructing the Three.js Phong Shader</title>
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/blog/feed.xml" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+</head>
+<body>
+    <div id="container">
+        <header id="header">
+            <span><a href="/about">DJH</a></span>
+            <span id="header-nav"><a href="/previous">Previous Post</a>  | <a href="/posts">All Posts </a></span>
+        </header>
+
+        <div id="main" role="main">
+                <div class="post-header">
+        <h1>Deconstructing the Three.js Phong Shader</h1>
+    </div>
+    <div class="post-body">
+        <div class="left-col">
+            <span class="post-date"><a href="/">October 30, 2014</a></span>
+        </div>
+        <div class="main-col">
+            <p>DISCLAIMER: This is homework. You&#39;re probably better off learning about shaders from one of my sources.</p>
+
+<p>In this blog post, we&#39;re going to look at shaders in WebGL, in particular the Phong Shader implementation in three.js, a Javascript 3d graphics library. We&#39;ll do this by looking at a few examples and then analyzing the GLSL shader code. The code for my examples if available on <a title="GitHub" href="http://www.github.com/dj">GitHub.</a></p>
+
+<h2>Setting Up the Scene with Three.js</h2>
+
+<p>First of all, it&#39;s a little dark in here. After some boilerplate code to set up the scene, we need to do give the scene some ambient light before we can see anything.</p>
+<pre class="highlight javascript"><span class="c1">// Ambient light
+</span><span class="kd">var</span> <span class="nx">ambientLight</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">AmbientLight</span><span class="p">(</span><span class="mh">0x888888</span><span class="p">);</span>
+<span class="nx">scene</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">ambientLight</span><span class="p">)</span>
+</pre>
+<p>Now that we have some ambient lighting, we should be able to see what we put in our scene. We can make sphere with a simple green color mesh like so.</p>
+<pre class="highlight javascript"><span class="c1">// Make the sphere
+</span><span class="kd">var</span> <span class="nx">geometry</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">SphereGeometry</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+    <span class="nx">material</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">MeshBasicMaterial</span><span class="p">({</span> <span class="na">color</span><span class="p">:</span> <span class="mh">0x222222</span> <span class="p">});</span>
+
+<span class="nx">sphere</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">Mesh</span><span class="p">(</span><span class="nx">geometry</span><span class="p">,</span> <span class="nx">material</span><span class="p">);</span>
+
+<span class="nx">scene</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">sphere</span><span class="p">);</span>
+</pre>
+<p>Now we have a dimly lit sphere, but every pixel has the same color value.</p>
+
+<p><a title="Unshaded Sphere" href="http://www.google.com"><img alt="Unshaded sphere demo" src="/images/2014-10-30-deconstructing-the-three-js-phong-shader/sphere-1.png" /></a>
+<a title="Unshaded Sphere" href="http://www.google.com">Demo</a></p>
+
+<p>I&#39;ve included a Three.js plugin that gives you orbital mouse controls similar to most 3d modelling programs. You can zoom or out, but no matter what angle you look at the sphere, it pretty much looks flat.</p>
+
+<h2>Phong Shading</h2>
+
+<p>Phong Shading generally referrs to either the <a title="Phong reflection model - Wikipedia" href="http://en.wikipedia.org/wiki/Phong_reflection_model">Phong reflection model</a>, the <a title="Phong shading - Wikipedia" href="http://en.wikipedia.org/wiki/Phong_shading">Phong normal-vector interpolation technique</a> or a combination of both techniques. Essentially, Phong Shading meant to empirically approximate the way that shiny surfaces reflect light. It is made up of 3 components:</p>
+
+<ul>
+<li><a title="Diffuse reflection - Wikipedia" href="http://en.wikipedia.org/wiki/Diffuse_reflection">The diffuse reflection</a> exhibited by rough surfaces</li>
+<li>The ambient light in the room</li>
+<li>[The specular reflection] exhibited by shiny surfaces. Phong informally observed that shiny surfaces have small, intense specular highlights that fade away quickly (the &quot;white&quot; highlights on shiny surfaces in computer generated graphics).</li>
+</ul>
+
+<p><a title="Phong components - Wikipedia" href="http://en.wikipedia.org/wiki/Phong_shading#mediaviewer/File:Phong_components_version_4.png"><img alt="Phong components" src="/images/2014-10-30-deconstructing-the-three-js-phong-shader/phong-components.png" /></a>
+<a title="Phong components - Wikipedia" href="http://en.wikipedia.org/wiki/Phong_shading#mediaviewer/File:Phong_components_version_4.png">Phong Components</a></p>
+
+<h2>Phong Shading in Three.js</h2>
+
+<p>First, we need to add a directional light. In Three.js, directional lights don&#39;t actually have positions, just a direction.</p>
+<pre class="highlight javascript"><span class="c1">// Lighting
+</span><span class="kd">var</span> <span class="nx">ambientLight</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">AmbientLight</span><span class="p">(</span><span class="mh">0x888888</span><span class="p">),</span>
+    <span class="nx">directionalLight</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">DirectionalLight</span><span class="p">(</span> <span class="mh">0xffffff</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">);</span>
+
+<span class="c1">// Position the light, pointing at the origin
+</span><span class="nx">directionalLight</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+<span class="nx">scene</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">directionalLight</span><span class="p">);</span>
+<span class="nx">scene</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">ambientLight</span><span class="p">);</span>
+</pre>
+<p>To use a Phong shader in Three.js, we create a MeshPhongMaterial and provide it with variables to define the colors of its ambient, diffuse and specular terms.</p>
+<pre class="highlight javascript"><span class="c1">// Shade a sphere
+</span><span class="kd">var</span> <span class="nx">geometry</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">SphereGeometry</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">phongShader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">MeshPhongMaterial</span><span class="p">({</span>
+    <span class="na">ambient</span><span class="p">:</span>    <span class="mh">0x222222</span><span class="p">,</span>
+    <span class="na">color</span><span class="p">:</span>      <span class="mh">0x222222</span><span class="p">,</span>
+    <span class="na">specular</span><span class="p">:</span>   <span class="mh">0xffffff</span><span class="p">,</span>
+    <span class="na">shininess</span><span class="p">:</span>  <span class="mi">2</span><span class="p">,</span>
+    <span class="na">shading</span><span class="p">:</span>    <span class="nx">THREE</span><span class="p">.</span><span class="nx">SmoothShading</span>
+<span class="p">});</span>
+
+<span class="nx">sphere</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">Mesh</span><span class="p">(</span><span class="nx">geometry</span><span class="p">,</span> <span class="nx">phongShader</span><span class="p">);</span>
+<span class="nx">scene</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">sphere</span><span class="p">);</span>
+</pre>
+<p><a title="Shaded Sphere" href="http://www.google.com"><img alt="Shaded sphere demo" src="/images/2014-10-30-deconstructing-the-three-js-phong-shader/sphere-2.png" /></a>
+<a title="Shaded Sphere" href="http://www.google.com">Demo</a></p>
+
+        </div>
+    </div>
+
+        </div>
+    </div>
+</body>
+</html>

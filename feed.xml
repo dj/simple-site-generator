@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Blog Name</title>
+  <subtitle>Blog subtitle</subtitle>
+  <id>http://blog.url.com/blog</id>
+  <link href="http://blog.url.com/blog"/>
+  <link href="http://blog.url.com/feed.xml" rel="self"/>
+  <updated>2014-10-30T13:30:00-04:00</updated>
+  <author>
+    <name>Blog Author</name>
+  </author>
+  <entry>
+    <title>Deconstructing the Three.js Phong Shader</title>
+    <link rel="alternate" href="http://blog.url.com/blog/deconstructing-the-three-js-phong-shader/"/>
+    <id>http://blog.url.com/blog/deconstructing-the-three-js-phong-shader/</id>
+    <published>2014-10-30T13:30:00-04:00</published>
+    <updated>2014-10-30T22:06:33-04:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;p&gt;DISCLAIMER: This is homework. You&amp;#39;re probably better off learning about shaders from one of my sources.&lt;/p&gt;
+
+&lt;p&gt;In this blog post, we&amp;#39;re going to look at shaders in WebGL, in particular the Phong Shader implementation in three.js, a Javascript 3d graphics library. We&amp;#39;ll do this by looking at a few examples and then analyzing the GLSL shader code. The code for my examples if available on &lt;a title="GitHub" href="http://www.github.com/dj"&gt;GitHub.&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;Setting Up the Scene with Three.js&lt;/h2&gt;
+
+&lt;p&gt;First of all, it&amp;#39;s a little dark in here. After some boilerplate code to set up the scene, we need to do give the scene some ambient light before we can see anything.&lt;/p&gt;
+&lt;pre class="highlight javascript"&gt;&lt;span class="c1"&gt;// Ambient light
+&lt;/span&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;ambientLight&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;THREE&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;AmbientLight&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;0x888888&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;scene&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;ambientLight&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Now that we have some ambient lighting, we should be able to see what we put in our scene. We can make sphere with a simple green color mesh like so.&lt;/p&gt;
+&lt;pre class="highlight javascript"&gt;&lt;span class="c1"&gt;// Make the sphere
+&lt;/span&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;geometry&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;THREE&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;SphereGeometry&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="nx"&gt;material&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;THREE&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;MeshBasicMaterial&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt; &lt;span class="na"&gt;color&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mh"&gt;0x222222&lt;/span&gt; &lt;span class="p"&gt;});&lt;/span&gt;
+
+&lt;span class="nx"&gt;sphere&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;THREE&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Mesh&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;geometry&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;material&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="nx"&gt;scene&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;sphere&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Now we have a dimly lit sphere, but every pixel has the same color value.&lt;/p&gt;
+
+&lt;p&gt;&lt;a title="Unshaded Sphere" href="http://www.google.com"&gt;&lt;img alt="Unshaded sphere demo" src="/images/2014-10-30-deconstructing-the-three-js-phong-shader/sphere-1.png" /&gt;&lt;/a&gt;
+&lt;a title="Unshaded Sphere" href="http://www.google.com"&gt;Demo&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I&amp;#39;ve included a Three.js plugin that gives you orbital mouse controls similar to most 3d modelling programs. You can zoom or out, but no matter what angle you look at the sphere, it pretty much looks flat.&lt;/p&gt;
+
+&lt;h2&gt;Phong Shading&lt;/h2&gt;
+
+&lt;p&gt;Phong Shading generally referrs to either the &lt;a title="Phong reflection model - Wikipedia" href="http://en.wikipedia.org/wiki/Phong_reflection_model"&gt;Phong reflection model&lt;/a&gt;, the &lt;a title="Phong shading - Wikipedia" href="http://en.wikipedia.org/wiki/Phong_shading"&gt;Phong normal-vector interpolation technique&lt;/a&gt; or a combination of both techniques. Essentially, Phong Shading meant to empirically approximate the way that shiny surfaces reflect light. It is made up of 3 components:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a title="Diffuse reflection - Wikipedia" href="http://en.wikipedia.org/wiki/Diffuse_reflection"&gt;The diffuse reflection&lt;/a&gt; exhibited by rough surfaces&lt;/li&gt;
+&lt;li&gt;The ambient light in the room&lt;/li&gt;
+&lt;li&gt;[The specular reflection] exhibited by shiny surfaces. Phong informally observed that shiny surfaces have small, intense specular highlights that fade away quickly (the &amp;quot;white&amp;quot; highlights on shiny surfaces in computer generated graphics).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a title="Phong components - Wikipedia" href="http://en.wikipedia.org/wiki/Phong_shading#mediaviewer/File:Phong_components_version_4.png"&gt;&lt;img alt="Phong components" src="/images/2014-10-30-deconstructing-the-three-js-phong-shader/phong-components.png" /&gt;&lt;/a&gt;
+&lt;a title="Phong components - Wikipedia" href="http://en.wikipedia.org/wiki/Phong_shading#mediaviewer/File:Phong_components_version_4.png"&gt;Phong Components&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;Phong Shading in Three.js&lt;/h2&gt;
+
+&lt;p&gt;First, we need to add a directional light. In Three.js, directional lights don&amp;#39;t actually have positions, just a direction.&lt;/p&gt;
+&lt;pre class="highlight javascript"&gt;&lt;span class="c1"&gt;// Lighting
+&lt;/span&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;ambientLight&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;THREE&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;AmbientLight&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;0x888888&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="nx"&gt;directionalLight&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;THREE&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;DirectionalLight&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="mh"&gt;0xffffff&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Position the light, pointing at the origin
+&lt;/span&gt;&lt;span class="nx"&gt;directionalLight&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;position&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;set&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="nx"&gt;scene&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;directionalLight&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;scene&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;ambientLight&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;To use a Phong shader in Three.js, we create a MeshPhongMaterial and provide it with variables to define the colors of its ambient, diffuse and specular terms.&lt;/p&gt;
+&lt;pre class="highlight javascript"&gt;&lt;span class="c1"&gt;// Shade a sphere
+&lt;/span&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;geometry&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;THREE&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;SphereGeometry&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;phongShader&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;THREE&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;MeshPhongMaterial&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+    &lt;span class="na"&gt;ambient&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;    &lt;span class="mh"&gt;0x222222&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="na"&gt;color&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;      &lt;span class="mh"&gt;0x222222&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="na"&gt;specular&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;   &lt;span class="mh"&gt;0xffffff&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="na"&gt;shininess&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;  &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="na"&gt;shading&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;    &lt;span class="nx"&gt;THREE&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;SmoothShading&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;
+
+&lt;span class="nx"&gt;sphere&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;THREE&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Mesh&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;geometry&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;phongShader&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;scene&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;sphere&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;&lt;a title="Shaded Sphere" href="http://www.google.com"&gt;&lt;img alt="Shaded sphere demo" src="/images/2014-10-30-deconstructing-the-three-js-phong-shader/sphere-2.png" /&gt;&lt;/a&gt;
+&lt;a title="Shaded Sphere" href="http://www.google.com"&gt;Demo&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Nothing to see here.</title>
+    <link rel="alternate" href="http://blog.url.com/blog/nothing-to-see-here/"/>
+    <id>http://blog.url.com/blog/nothing-to-see-here/</id>
+    <published>2014-10-23T18:16:00-04:00</published>
+    <updated>2014-10-23T22:54:28-04:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;p&gt;Daniel Jay Hartman is a Filipino American living in Boston. He owes Northeastern University a lot of money for the BS in Computer Science and Interactive Media that he plans to complete in May, 2015. People pay him to design and code things sometimes. This is good; he requires shelter and calories to maintain existence, and thus, must perform services in exchange for currency. &lt;a href="http://www.smbc-comics.com/?id=3454#comic"&gt;[1]&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This site is being perpetually redesigned, like any good personal webpage, so here are some places you can find him online:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;He tweets under &lt;a href="https://twitter.com/djhrtmn"&gt;@djhrtmn&lt;/a&gt; if you want to listen to him shout about computers and the people that use them for some reason.&lt;/li&gt;
+&lt;li&gt;He can be emailed &lt;a href="mailto:danieljayhartman+contact@gmail.com"&gt;here.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;His resumé can be viewed &lt;a href="/resume.pdf"&gt;here.&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Writing an OSL Shader for Blender</title>
+    <link rel="alternate" href="http://blog.url.com/blog/example-article/"/>
+    <id>http://blog.url.com/blog/example-article/</id>
+    <published>2011-12-31T19:00:00-05:00</published>
+    <updated>2014-10-30T14:03:51-04:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;p&gt;Open Shading Language (OSL) is a small but rich language for programmable shading in advanced renderers and other applications, ideal for describing materials, lights, displacement, and pattern generation.&lt;/p&gt;
+
+&lt;p&gt;The OSL code is distributed under the &amp;quot;New BSD&amp;quot; license (see the &amp;quot;LICENSE&amp;quot; file that comes with the distribution), and the documentation under the Creative Commons Attribution 3.0 Unported License (http://creativecommons.org/licenses/by/3.0/). In short, you are free to use OSL in your own applications, whether they are free or commercial, open or proprietary, as well as to modify the OSL code and documentation as you desire, provided that you retain the original copyright notices as described in the license.&lt;/p&gt;
+</content>
+  </entry>
+</feed>
