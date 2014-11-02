@@ -539,7 +539,21 @@ only screen and (-o-min-device-pixel-ratio: 3/2),
 only screen and (min--moz-device-pixel-ratio: 1.5),
 only screen and (min-device-pixel-ratio: 1.5) {
   @media (max-width: 1080px) {
+      body {
+        font-size: 14px;
+      }
 
+      #container {
+        margin-left: 1em;
+        max-width: 95%;
+      }
+
+      .post-body .left-col,
+      .post-body .main-col,
+      .post-body,
+      .post-header {
+        margin-left: 0;
+      }
   }
 }
 
