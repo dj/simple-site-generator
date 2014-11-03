@@ -491,6 +491,7 @@ body {
   .post-body .main-col,
   .post-body,
   .post-header {
+    max-width: 95%;
     margin-left: 0;
   }
 
