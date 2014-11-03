@@ -443,7 +443,10 @@ body {
   /*color: #efefef;*/
   /*background-color: #222;*/
   padding: 1em 0;
-  font-size: 1.25em;
+
+  span {
+    font-size: 1.25em;
+  }
 }
 
 #container {
