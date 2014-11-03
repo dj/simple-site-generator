@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.url.com/blog/deconstructing-the-three-js-phong-shader/"/>
     <id>http://blog.url.com/blog/deconstructing-the-three-js-phong-shader/</id>
     <published>2014-10-30T13:30:00-04:00</published>
-    <updated>2014-11-02T20:17:35-05:00</updated>
+    <updated>2014-11-02T20:35:53-05:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -32,7 +32,7 @@
 &lt;li&gt;&lt;a title="Specular reflection - Wikipedia" href="http://en.wikipedia.org/wiki/Specular_reflection"&gt;The specular reflection&lt;/a&gt; exhibited by shiny surfaces. Phong informally observed that shiny surfaces have small, intense specular highlights that fade away quickly (the &amp;quot;white&amp;quot; highlights on shiny surfaces in computer generated graphics).&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;a title="Phong components - Wikipedia" href="http://en.wikipedia.org/wiki/Phong_shading#mediaviewer/File:Phong_components_version_4.png"&gt;&lt;img alt="Phong components" src="/images/2014-10-30-deconstructing-the-three-js-phong-shader/phong-components.png" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a title="Phong components - Wikipedia" href="http://en.wikipedia.org/wiki/Phong_shading#mediaviewer/File:Phong_components_version_4.png"&gt;&lt;img alt="Phong components" src="/images/deconstructing-the-three-js-phong-shader/phong-components.png" /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a title="Phong components - Wikipedia" href="http://en.wikipedia.org/wiki/Phong_shading#mediaviewer/File:Phong_components_version_4.png"&gt;Phong Components&lt;/a&gt;&lt;/p&gt;
 
@@ -40,7 +40,7 @@
 
 &lt;p&gt;Generally, shaders are built around two functions: a vector shader function that operates on every vector in the mesh and a fragment shader that operates on every pixel in the mesh. Phong shading is a per pixel shading technique, meaning that it is mainly implemented by the fragment shader.&lt;/p&gt;
 
-&lt;p&gt;&lt;a title="Phong for Dummies - gameprogrammer.net" href="http://www.gameprogrammer.net/delphi3dArchive/phongfordummies.htm"&gt;&lt;img alt="Shaded sphere from top" src="/images/2014-10-30-deconstructing-the-three-js-phong-shader/phong-reflection.png" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a title="Phong for Dummies - gameprogrammer.net" href="http://www.gameprogrammer.net/delphi3dArchive/phongfordummies.htm"&gt;&lt;img alt="Shaded sphere from top" src="/images/deconstructing-the-three-js-phong-shader/phong-reflection.png" /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;This diagram helps illustrate the inputs to the fragment shader, in particular the surface normal (the vector that is facing outwards and perpendicular to a line tangent to our pixel), the vector to eye (the vector pointing from the pixel to the camera) and the vector to the light source.&lt;/p&gt;
 
@@ -64,9 +64,9 @@
 &lt;/pre&gt;
 &lt;p&gt;Now we have a dimly lit sphere, but every pixel has the same color value.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="Unshaded sphere demo" src="/images/2014-10-30-deconstructing-the-three-js-phong-shader/sphere-1.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Unshaded sphere demo" src="/images/deconstructing-the-three-js-phong-shader/sphere-1.png" /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a title="Unshaded Sphere" href="http://hartman.dj/phong_shader/ex1.html"&gt;Demo&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a title="Unshaded Sphere" href="http://hartman.dj/phong_shader/ex1.html"&gt;Live Demo&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;I&amp;#39;ve included a Three.js plugin that gives you orbital mouse controls similar to most 3d modelling programs. You can zoom or out, but no matter what angle you look at the sphere, it pretty much looks flat.&lt;/p&gt;
 
@@ -97,9 +97,9 @@
 &lt;span class="nx"&gt;sphere&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;THREE&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Mesh&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;geometry&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;phongShader&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="nx"&gt;scene&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;sphere&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;
-&lt;p&gt;&lt;img alt="Shaded sphere demo" src="/images/2014-10-30-deconstructing-the-three-js-phong-shader/sphere-2.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Shaded sphere demo" src="/images/deconstructing-the-three-js-phong-shader/sphere-2.png" /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a title="Shaded Sphere" href="http://hartman.dj/phong_shader/ex2.html"&gt;Demo&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a title="Shaded Sphere" href="http://hartman.dj/phong_shader/ex2.html"&gt;Live Demo&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2&gt;Phong Shader Implementation in Three.js&lt;/h2&gt;
 
