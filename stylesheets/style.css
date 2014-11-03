@@ -478,17 +478,13 @@ body {
 @media only screen and (max-width: 1080px) {
   #container {
     margin-left: 1em;
+    max-width: 95%;
   }
 }
 
 @media only screen and (max-width: 960px) {
   body {
     font-size: 16px;
-  }
-
-  #container {
-    margin-left: 1em;
-    max-width: 95%;
   }
 
   .post-body .left-col,
@@ -511,10 +507,6 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
-  body {
-    font-size: 14px;
-  }
-
   #container {
     margin-left: 1em;
     max-width: 95%;
