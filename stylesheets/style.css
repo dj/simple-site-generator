@@ -442,7 +442,8 @@ body {
   border-bottom: 4px solid #000;
   /*color: #efefef;*/
   /*background-color: #222;*/
-  padding: 1em 0;nd
+  padding: 1em 0;
+  font-size: 1.25em;
 }
 
 #container {
