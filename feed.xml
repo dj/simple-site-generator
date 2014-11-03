@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.url.com/blog/deconstructing-the-three-js-phong-shader/"/>
     <id>http://blog.url.com/blog/deconstructing-the-three-js-phong-shader/</id>
     <published>2014-10-30T13:30:00-04:00</published>
-    <updated>2014-11-02T18:53:17-05:00</updated>
+    <updated>2014-11-02T20:12:20-05:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -64,7 +64,7 @@
 &lt;/pre&gt;
 &lt;p&gt;Now we have a dimly lit sphere, but every pixel has the same color value.&lt;/p&gt;
 
-&lt;p&gt;&lt;a title="Unshaded Sphere" href="http://hartman.dj/phong_shader/ex1.html"&gt;&lt;img alt="Unshaded sphere demo" src="/images/2014-10-30-deconstructing-the-three-js-phong-shader/sphere-1.png" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Unshaded sphere demo" src="/images/2014-10-30-deconstructing-the-three-js-phong-shader/sphere-1.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a title="Unshaded Sphere" href="http://hartman.dj/phong_shader/ex1.html"&gt;Demo&lt;/a&gt;&lt;/p&gt;
 
@@ -97,7 +97,7 @@
 &lt;span class="nx"&gt;sphere&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;THREE&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Mesh&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;geometry&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;phongShader&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="nx"&gt;scene&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;sphere&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;
-&lt;p&gt;&lt;a title="Shaded Sphere" href="http://hartman.dj/phong_shader/ex2.html"&gt;&lt;img alt="Shaded sphere demo" src="/images/2014-10-30-deconstructing-the-three-js-phong-shader/sphere-2.png" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Shaded sphere demo" src="/images/2014-10-30-deconstructing-the-three-js-phong-shader/sphere-2.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a title="Shaded Sphere" href="http://hartman.dj/phong_shader/ex2.html"&gt;Demo&lt;/a&gt;&lt;/p&gt;
 
