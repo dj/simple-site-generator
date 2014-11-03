@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.url.com/blog/deconstructing-the-three-js-phong-shader/"/>
     <id>http://blog.url.com/blog/deconstructing-the-three-js-phong-shader/</id>
     <published>2014-10-30T13:30:00-04:00</published>
-    <updated>2014-11-02T20:12:20-05:00</updated>
+    <updated>2014-11-02T20:17:35-05:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -119,14 +119,14 @@
   &lt;span class="s2"&gt;&amp;quot;varying vec3 vViewPosition;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
   &lt;span class="s2"&gt;&amp;quot;varying vec3 vNormal;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
 &lt;/pre&gt;
-&lt;p&gt;https://github.com/mrdoob/three.js/blob/master/src/renderers/shaders/ShaderLib.js#L248&lt;/p&gt;
+&lt;p&gt;&lt;a title="Three.js - GitHub" href="https://github.com/mrdoob/three.js/blob/master/src/renderers/shaders/ShaderLib.js#L248"&gt;ShaderLib.js&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;The vertex shader declares two varyings that it will pass to the fragment shader, the view position (camera perspective) and the normal.&lt;/p&gt;
 
 &lt;p&gt;The fragment shader&amp;#39;s implementation is much more complex than the description I&amp;#39;ve provided, it accounts for a number of different types of light source (other than the simple directional one we used). It also uses a slightly more advanced Blinn-Phong technique, but the basic principle is the same, using the angle between the surface normal and light source to calculate the color of the pixel.&lt;/p&gt;
 &lt;pre class="highlight javascript"&gt;&lt;span class="kr"&gt;float&lt;/span&gt; &lt;span class="nx"&gt;dotProduct&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;dot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="nx"&gt;normal&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;lVector&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;
-&lt;p&gt;https://github.com/mrdoob/three.js/blob/master/src/renderers/shaders/ShaderChunk/lights&lt;em&gt;phong&lt;/em&gt;fragment.glsl#L38&lt;/p&gt;
+&lt;p&gt;&lt;a title="Three.js - GitHub" href="https://github.com/mrdoob/three.js/blob/master/src/renderers/shaders/ShaderChunk/lights_phong_fragment.glsl#L38"&gt;lights&lt;em&gt;phong&lt;/em&gt;fragment.glsl&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;The &lt;a title="The dot product - Wikipedia" href="http://en.wikipedia.org/wiki/Dot_product"&gt;dot product&lt;/a&gt; gives us the angle between the normal the light vector. If it is 10 or negative, the angle is a right angle or greater, the light is not facing the pixel and the diffuse term will be 0. If the dot product is positive, it tells us how bright the diffuse term should be. This isn&amp;#39;t a physically accurate description of light, but it is a computationally cheap way to shade shiny surfaces, making it the basis for many other types of more complex shaders.&lt;/p&gt;
 </content>

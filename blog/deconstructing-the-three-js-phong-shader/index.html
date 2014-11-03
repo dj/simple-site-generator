@@ -124,14 +124,14 @@
   <span class="s2">&quot;varying vec3 vViewPosition;&quot;</span><span class="p">,</span>
   <span class="s2">&quot;varying vec3 vNormal;&quot;</span><span class="p">,</span>
 </pre>
-<p>https://github.com/mrdoob/three.js/blob/master/src/renderers/shaders/ShaderLib.js#L248</p>
+<p><a title="Three.js - GitHub" href="https://github.com/mrdoob/three.js/blob/master/src/renderers/shaders/ShaderLib.js#L248">ShaderLib.js</a></p>
 
 <p>The vertex shader declares two varyings that it will pass to the fragment shader, the view position (camera perspective) and the normal.</p>
 
 <p>The fragment shader&#39;s implementation is much more complex than the description I&#39;ve provided, it accounts for a number of different types of light source (other than the simple directional one we used). It also uses a slightly more advanced Blinn-Phong technique, but the basic principle is the same, using the angle between the surface normal and light source to calculate the color of the pixel.</p>
 <pre class="highlight javascript"><span class="kr">float</span> <span class="nx">dotProduct</span> <span class="o">=</span> <span class="nx">dot</span><span class="p">(</span> <span class="nx">normal</span><span class="p">,</span> <span class="nx">lVector</span> <span class="p">);</span>
 </pre>
-<p>https://github.com/mrdoob/three.js/blob/master/src/renderers/shaders/ShaderChunk/lights<em>phong</em>fragment.glsl#L38</p>
+<p><a title="Three.js - GitHub" href="https://github.com/mrdoob/three.js/blob/master/src/renderers/shaders/ShaderChunk/lights_phong_fragment.glsl#L38">lights<em>phong</em>fragment.glsl</a></p>
 
 <p>The <a title="The dot product - Wikipedia" href="http://en.wikipedia.org/wiki/Dot_product">dot product</a> gives us the angle between the normal the light vector. If it is 10 or negative, the angle is a right angle or greater, the light is not facing the pixel and the diffuse term will be 0. If the dot product is positive, it tells us how bright the diffuse term should be. This isn&#39;t a physically accurate description of light, but it is a computationally cheap way to shade shiny surfaces, making it the basis for many other types of more complex shaders.</p>
 
