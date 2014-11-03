@@ -467,30 +467,21 @@ body {
 
 .post-date {
   font-family: "libre_baskervilleitalic", Georgia, serif;
-  font-size: 14px;
+  font-size: 0.9em;
 }
 
-.post-body .main-col {
+.main-col {
   margin-left: 150px;
   max-width: 500px;
 }
 
-
-/*
- * Media queries for responsive design https://github.com/shichuan/mobile-html5-boilerplate/wiki/The-Style
- */
-
-
-/* Styles for desktop and large screen ----------- */
-@media only screen and (max-width: 1160px) {
+@media only screen and (max-width: 1080px) {
   #container {
     margin-left: 1em;
-    max-width: 95%;
   }
 }
 
-/* Style for mobile and small screens ------------ */
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 960px) {
   body {
     font-size: 16px;
   }
@@ -510,6 +501,11 @@ body {
   .post-body .left-col,
   .post-body .main-col {
     float: none;
+    max-width: 95%;
+  }
+
+  #container {
+    margin-left: 1em;
     max-width: 95%;
   }
 }

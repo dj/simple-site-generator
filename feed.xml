@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.url.com/blog/deconstructing-the-three-js-phong-shader/"/>
     <id>http://blog.url.com/blog/deconstructing-the-three-js-phong-shader/</id>
     <published>2014-10-30T13:30:00-04:00</published>
-    <updated>2014-11-02T18:36:22-05:00</updated>
+    <updated>2014-11-02T18:53:17-05:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -38,7 +38,7 @@
 
 &lt;h2&gt;Per Pixel Shading&lt;/h2&gt;
 
-&lt;p&gt;Generally, shaders are built around two functions, a vector shader function that operates on every vector in the mesh and a fragment shader that operates on every pixel in the mesh. Phong shading is a per pixel shading technique, meaning that it is mainly implemented by the fragment shader.&lt;/p&gt;
+&lt;p&gt;Generally, shaders are built around two functions: a vector shader function that operates on every vector in the mesh and a fragment shader that operates on every pixel in the mesh. Phong shading is a per pixel shading technique, meaning that it is mainly implemented by the fragment shader.&lt;/p&gt;
 
 &lt;p&gt;&lt;a title="Phong for Dummies - gameprogrammer.net" href="http://www.gameprogrammer.net/delphi3dArchive/phongfordummies.htm"&gt;&lt;img alt="Shaded sphere from top" src="/images/2014-10-30-deconstructing-the-three-js-phong-shader/phong-reflection.png" /&gt;&lt;/a&gt;&lt;/p&gt;
 
