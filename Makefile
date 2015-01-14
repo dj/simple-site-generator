@@ -10,14 +10,18 @@ build_dir := build/
 src_html := src/**/*.html
 build_html := $(shell find src -name '*.html' | sed 's/src/build/')
 
-.PHONY: setup build
+.PHONY: clean build stylesheets
 
-setup: clean build
+setup: clean build stylesheets
 
 # copy src/ to build/, ignoring files that need processing
 build:
 	@rsync -r --exclude='*.scss' src/ build/
 	@echo 'Copying files to build...'	
+
+stylesheets:
+	@compass compile --sass-dir "src/stylesheets" --css-dir "build/stylesheets" --javascripts-dir "scripts" --images-dir "src/images"
+	@echo 'Compiled sass...'
 
 clean:
 	@rm -rf $(build_dir)
