@@ -7,24 +7,19 @@ SHELL := /bin/bash
 src_dir := src/
 build_dir := build/
 
-src_html := %.html
-build_html := $(src_html:%.html=build/%.html)
+src_html := src/**/*.html
+build_html := $(shell find src -name '*.html' | sed 's/src/build/')
 
 .PHONY: setup build
 
 setup: clean build
 
-# Copy the dir tree from src to build
+# copy src/ to build/, ignoring files that need processing
 build:
-	$(shell find src -type d | sed 's/src/build/' | xargs mkdir -p)
-
-$(build_html): $(src_html)
-	@echo "Copying html..."
-	cp $< $@
+	@rsync -r --exclude='*.scss' src/ build/
+	@echo 'Copying files to build...'	
 
 clean:
 	@rm -rf $(build_dir)
-	@echo "Clean complete..."
-	
-	@echo $(src_html)
-	@echo $(build_html)
+	@echo 'Cleaned old build...'
+
