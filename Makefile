@@ -23,6 +23,9 @@ stylesheets:
 	@compass compile --sass-dir "src/stylesheets" --css-dir "build/stylesheets" --javascripts-dir "scripts" --images-dir "src/images"
 	@echo 'Compiled sass...'
 
+sasswatch:
+	@compass watch --sass-dir "src/stylesheets" --css-dir "build/stylesheets" --javascripts-dir "scripts" --images-dir "src/images"
+
 clean:
 	@rm -rf $(build_dir)
 	@echo 'Cleaned old build...'
