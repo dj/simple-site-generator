@@ -12,7 +12,7 @@ build_html := $(shell find src -name '*.html' | sed 's/src/build/')
 
 .PHONY: clean build stylesheets
 
-setup: clean build stylesheets
+setup: clean build templates stylesheets
 
 build:
 	@rsync -r --exclude='*.scss' --exclude='*.jade' src/ build/
