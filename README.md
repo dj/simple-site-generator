@@ -1,7 +1,8 @@
 # TODO
 
-+ basic build process
-	+ sass
-	+ compass
-	+ js lint
-	+ worry about tests and minification later
++ layout and style pages  
+	+ index
+	+ blog roll
+	+ blog posts
+	+ about me
+  + portfolio 
