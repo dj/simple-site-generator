@@ -23,6 +23,13 @@ stylesheets:
 	@compass compile --sass-dir "src/stylesheets" --css-dir "build/stylesheets" --javascripts-dir "scripts" --images-dir "src/images"
 	@echo 'Compiled sass...'
 
+templates:
+	@find src -type d | xargs jade
+	@echo 'Compiling jade templates...'
+
+jadewatch:
+	@find src -type d | xargs jade -w
+
 sasswatch:
 	@compass watch --sass-dir "src/stylesheets" --css-dir "build/stylesheets" --javascripts-dir "scripts" --images-dir "src/images"
 
