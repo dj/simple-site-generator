@@ -1,6 +1,5 @@
 node_modules
 Gemfile.lock
 build/
-
 .sass-cache/
-
+*.swp
