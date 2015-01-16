@@ -14,9 +14,8 @@ build_html := $(shell find src -name '*.html' | sed 's/src/build/')
 
 setup: clean build stylesheets
 
-# copy src/ to build/, ignoring files that need processing
 build:
-	@rsync -r --exclude='*.scss' src/ build/
+	@rsync -r --exclude='*.scss' --exclude='*.jade' src/ build/
 	@echo 'Copying files to build...'	
 
 stylesheets:
@@ -24,11 +23,11 @@ stylesheets:
 	@echo 'Compiled sass...'
 
 templates:
-	@find src -type d | xargs jade
+	@find src -type d | xargs jade --out build/
 	@echo 'Compiling jade templates...'
 
 jadewatch:
-	@find src -type d | xargs jade -w
+	@find src -type d | xargs jade -w --out build/
 
 sasswatch:
 	@compass watch --sass-dir "src/stylesheets" --css-dir "build/stylesheets" --javascripts-dir "scripts" --images-dir "src/images"
