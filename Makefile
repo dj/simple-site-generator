@@ -27,7 +27,7 @@ templates:
 	@echo 'Compiling jade templates...'
 
 jadewatch:
-	@find src -type d | xargs jade -w --out build/
+	@find src -type d | xargs jade -w --out build/ --pretty
 
 sasswatch:
 	@compass watch --sass-dir "src/stylesheets" --css-dir "build/stylesheets" --javascripts-dir "scripts" --images-dir "src/images"
