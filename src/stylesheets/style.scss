@@ -1,10 +1,54 @@
 @import "base";
 
+body {
+  position: relative;
+  width: 100%;
+}
 .nav {
-  display: inline;
-  width: 300px;
+  background-color: $green-light;
+  border-right: 10px $green solid;
+  float: left;
+  height: 100%;
+  padding: 4em 2em 0;
+  width: 10em;
+
+  h3 {
+    color: $green-dark;
+    font-family: 'pt_sansbold', sans-serif; 
+    font-size: 22px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  p {
+    font-family: 'latolight', sans-serif;
+    font-size: 0.8em;
+    font-weight: 100;
+    line-height: 1.5em;
+    padding-bottom: 1.5em;
+  }
+
+  ul {
+  }
+
+  ul li { 
+    border-top: 1px solid $green-dark;
+    color: $green-dark;
+    font-family: 'latolight';
+    font-size: 0.8em;
+    list-style-position: inside;
+    padding: .4em 1.5em;
+    text-transform: uppercase;
+  }
 }
 
-.container {
-  display: inline;
+.nav .avi {
+  padding-bottom: 1em;
+  text-align: center;
+
+  img {
+    border: 8px solid $green;
+    border-radius: 50%;
+    width: 5em;
+  }
 }
