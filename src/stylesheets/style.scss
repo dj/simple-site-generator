@@ -9,9 +9,23 @@ body {
   border-right: 10px $green solid;
   float: left;
   height: 100%;
+  overflow: hidden;
   padding: 4em 2em 0;
   width: 10em;
+}
 
+.nav-avi {
+  padding-bottom: 1em;
+  text-align: center;
+
+  img {
+    border: 8px solid $green;
+    border-radius: 50%;
+    width: 5em;
+  }
+}
+
+.nav-content {
   h3 {
     color: $green-dark;
     font-family: 'pt_sansbold', sans-serif; 
@@ -25,10 +39,7 @@ body {
     font-size: 0.8em;
     font-weight: 100;
     line-height: 1.5em;
-    padding-bottom: 1.5em;
-  }
-
-  ul {
+    padding-bottom: 1em;
   }
 
   ul li { 
@@ -40,15 +51,57 @@ body {
     padding: .4em 1.5em;
     text-transform: uppercase;
   }
+
+
+  ul li:hover {
+    background-color: $green;
+  }
 }
 
-.nav .avi {
-  padding-bottom: 1em;
-  text-align: center;
+@media only screen and (max-width : 1024px) {
+  .nav {
+    height: auto;
+    padding: 0;
+    width: 100%;
+    border-bottom: 0.5em solid $green;
+    border-right: none;
+  }
 
-  img {
-    border: 8px solid $green;
-    border-radius: 50%;
-    width: 5em;
+  .nav-avi {
+    float: left;
+    padding: 1.25em 1em 0 1em;
+    text-align: left;
+    
+    img {
+      width: 4em;
+    }
+  }
+  
+  .nav-content {
+    float: left;
+    padding: 1.25em 0 0.5em;
+
+    ul li {
+      border-top: none;
+      border-left: 1px solid $green-dark;
+      display: inline;
+    }
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .nav-avi, .nav-content {
+    float: none;
+    height: auto;
+    text-align: center;
+    padding-bottom: 0;
+  }
+  
+  .nav-content {
+    ul li { 
+      border-left: none;
+      border-top: 1px solid $green-dark;
+      display: block;
+    }
   }
 }

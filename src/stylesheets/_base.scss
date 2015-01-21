@@ -56,3 +56,14 @@ html {
     font-weight: normal;
     font-style: normal;
 }
+
+// Links
+a {
+  color: $green-dark;
+  text-decoration: none; 
+}
+
+a:visited {
+ color: $green-dark;
+}
+
