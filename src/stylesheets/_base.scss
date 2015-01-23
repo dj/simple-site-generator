@@ -8,16 +8,45 @@ $green-light: rgb(218, 226, 218);
 $green:       rgb(188, 205, 188);
 $green-dark:  rgb(15, 90, 50);
 
+html, body {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
 // Type
 $base-font-size: 20px;
 $base-line-height: 30px;
-$lato: 'Lato, Helvetica, Arial, sans-serif';
+$lato: 'latoregular', Helvetica, Arial, 'sans-serif';
 
 @include establish-baseline();
 
 html {
   font-family: $lato;
   font-size: $base-font-size;
+  overflow: auto;
+  zoom: 1;
+
+  h1 {
+    font-size: 2em;
+    letter-spacing: 2px;
+    line-height: 1.1em;
+    padding-bottom: 1em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    color: $green-dark;
+    font-family: 'latolight';
+    font-weight: 100;
+    font-size: 1.25em;
+    padding: 0.5em 0;
+    text-transform: uppercase;
+  }
+  
+  h3 {
+    color: $green-dark;
+  } 
 }
 
 // Typefaces
