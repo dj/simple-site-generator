@@ -7,32 +7,30 @@ SHELL := /bin/bash
 src_dir := src/
 build_dir := build/
 
-src_html := src/**/*.html
-build_html := $(shell find src -name '*.html' | sed 's/src/build/')
+src_html := $(shell find src -name '*.jade')
+build_html := $(patsubst src/%.jade, build/%.html, $(src_html)) 
 
-.PHONY: clean build stylesheets
+.PHONY: all build clean copy jade stylesheets
 
-setup: clean build templates stylesheets
+all: clean copy jade stylesheets
 
-build:
-	@rsync -r --exclude='*.scss' --exclude='*.jade' src/ build/
-	@echo 'Copying files to build...'	
+jade: $(build_html)
+
+build/%.html: src/%.jade
+	@mkdir -p "$(@D)"
+	@jade $< --out $(@D)
+
+# Copy files that don't need processing
+copy:
+	@cp -r src/fonts src/img build/
+	@echo 'Files copied...'	
 
 stylesheets:
 	@compass compile --sass-dir "src/stylesheets" --css-dir "build/stylesheets" --javascripts-dir "scripts" --images-dir "src/images"
 	@echo 'Compiled sass...'
 
-templates:
-	@find src -type d | xargs jade --out build/
-	@echo 'Compiling jade templates...'
-
-jadewatch:
-	@find src -type d | xargs jade -w --out build/ 
-
-sasswatch:
-	@compass watch --sass-dir "src/stylesheets" --css-dir "build/stylesheets" --javascripts-dir "scripts" --images-dir "src/images"
-
 clean:
-	@rm -rf $(build_dir)
-	@echo 'Cleaned old build...'
+	@rm -rf build/ 
+	@mkdir build/
+	@echo 'Cleaned build/'
 

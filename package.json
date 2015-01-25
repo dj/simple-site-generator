@@ -1,8 +1,9 @@
 {
   "name": "myproject",
   "devDependencies": {
-    "jshint": "latest",
     "browserify": "latest",
-    "mocha": "latest"
+    "jshint": "latest",
+    "mocha": "latest",
+    "watch": "^0.13.0"
   }
 }
