@@ -2,17 +2,22 @@
 @import "compass/utilities";
 @import "compass/css3";
 @import "compass/typography/vertical_rhythm";
+@import "compass/css3/box-sizing";
 
-// Colors
-$green-light: rgb(218, 226, 218);
-$green:       rgb(188, 205, 188);
-$green-dark:  rgb(15, 90, 50);
+* {
+  @include box-sizing(border-box);
+}
 
 html, body {
   position: relative;
   height: 100%;
   width: 100%;
 }
+
+// Colors
+$green-light: rgb(218, 226, 218);
+$green:       rgb(188, 205, 188);
+$green-dark:  rgb(15, 90, 50);
 
 // Type
 $base-font-size: 20px;

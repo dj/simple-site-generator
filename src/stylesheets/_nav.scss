@@ -6,7 +6,7 @@
   overflow: hidden;
   position: absolute;
   padding: 4em 2em 0;
-  width: 10em;
+  width: 14em;
 }
 
 .nav-avi {
@@ -55,8 +55,10 @@
 
 @media only screen and (max-width : 1024px) {
   .nav {
+    float: none;
     height: auto;
     padding: 0;
+    position: relative;
     width: 100%;
     border-bottom: 0.5em solid $green;
     border-right: none;

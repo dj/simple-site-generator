@@ -3,6 +3,7 @@
   "devDependencies": {
     "browserify": "latest",
     "jshint": "latest",
+    "markdown": "^0.5.0",
     "mocha": "latest",
     "watch": "^0.13.0"
   }
