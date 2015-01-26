@@ -53,7 +53,6 @@ html {
     font-size: 2em;
     letter-spacing: 2px;
     line-height: 1.1em;
-    padding-bottom: 1em;
     text-transform: uppercase;
   }
 
@@ -62,6 +61,7 @@ html {
     font-family: 'latolight';
     font-weight: 100;
     font-size: 1.25em;
+    line-height: 1.1em;
     padding: 0.5em 0;
     text-transform: uppercase;
   }
@@ -71,7 +71,24 @@ html {
   } 
 
   p {
+    max-width: 600px;
     font-family: 'latolight';
+    padding-bottom: 1em;
+  }
+
+  p.date {
+    color: $green-dark;
+    font-size: 0.8em;
+  }
+
+  p.caption {
+    font-size: 0.8em;
+  }
+
+  .nav-content {
+    ul li {
+      font-size: 0.8em;
+    }
   }
 }
 
@@ -103,7 +120,7 @@ html {
       font-family: $lato;
       font-size: 1em;
     }
-    
+ 
     h3 {
       font-size: 1em;
     } 
@@ -115,19 +132,29 @@ html {
 
   .nav-content {
     ul li {
+      font-size: 0.6em;
+    }
+  }
+
+  .container {
+    p.caption {
+      font-size: 0.6em;
+    }
+
+    p.date {
       font-size: 0.7em;
+      line-height: 1.5em;
     }
   }
 }
 
-// Links
+  // Links
 a {
   color: $green-dark;
   text-decoration: none; 
 }
-
 a:visited {
- color: $green-dark;
+  color: $green-dark;
 }
 
 

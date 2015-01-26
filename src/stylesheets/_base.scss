@@ -28,37 +28,3 @@ $base-font-size: 20px;
 $base-line-height: 30px;
 $lato: 'latoregular', Helvetica, Arial, 'sans-serif';
 
-@include establish-baseline();
-
-html {
-  font-family: $lato;
-  font-size: $base-font-size;
-  overflow: auto;
-  zoom: 1;
-
-  h1 {
-    font-size: 2em;
-    letter-spacing: 2px;
-    line-height: 1.1em;
-    padding-bottom: 1em;
-    text-transform: uppercase;
-  }
-
-  h2 {
-    color: $green-dark;
-    font-family: 'latolight';
-    font-weight: 100;
-    font-size: 1.25em;
-    padding: 0.5em 0;
-    text-transform: uppercase;
-  }
-  
-  h3 {
-    color: $green-dark;
-  } 
-
-  p {
-    font-family: 'latolight';
-  }
-}
-

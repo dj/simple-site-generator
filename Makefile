@@ -5,14 +5,14 @@ SHELL := /bin/bash
 .RECIPEPREFIX != ps
 
 src_html := $(shell find src -name '*.jade')
-build_html := $(patsubst src/%.jade, build/%.html, $(src_html)) 
+build_html := $(patsubst src/%.jade, build/%.html, $(src_html))
 
 src_md	 := $(shell find src -name '*.md')
 build_md := $(shell echo $(src_md) | sed 's/.md/.html/')
 
 .PHONY: all build clean copy markdown jade stylesheets watch
 
-all: clean copy jade stylesheets
+all: clean copy markdown jade stylesheets
 
 # Copy files that don't need processing
 copy:
@@ -38,7 +38,7 @@ stylesheets:
 	@echo 'Compiled sass...'
 
 clean:
-	@rm -rf build/ 
+	@rm -rf build/
 	@mkdir build/
 	@echo 'Cleaned build/'
 

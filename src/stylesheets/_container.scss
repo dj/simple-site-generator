@@ -6,15 +6,19 @@
 
   img {
     max-width: 100%;
+    padding-bottom: 5px;
+  }
+
+  p.date {
   }
 
   p.caption {
-    font-size: 0.8em;
   }
 }
 
 @media only screen and (max-width : 1024px) {
   .container {
+    padding: 20px 20px;
     margin-left: 0;
   }
 }
