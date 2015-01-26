@@ -10,7 +10,7 @@
 
 html, body {
   position: relative;
-  height: 100%;
+  height: auto;
   width: 100%;
 }
 
@@ -52,6 +52,10 @@ html {
   h3 {
     color: $green-dark;
   } 
+
+  p {
+    font-family: 'latolight';
+  }
 }
 
 // Typefaces

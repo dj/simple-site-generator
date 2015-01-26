@@ -7,7 +7,10 @@ SHELL := /bin/bash
 src_html := $(shell find src -name '*.jade')
 build_html := $(patsubst src/%.jade, build/%.html, $(src_html)) 
 
-.PHONY: all build clean copy jade stylesheets watch
+src_md	 := $(shell find src -name '*.md')
+build_md := $(shell echo $(src_md) | sed 's/.md/.html/')
+
+.PHONY: all build clean copy markdown jade stylesheets watch
 
 all: clean copy jade stylesheets
 
@@ -21,6 +24,14 @@ jade: $(build_html)
 build/%.html: src/%.jade
 	@mkdir -p "$(@D)"
 	@jade $< --out $(@D)
+
+# Since Jade filters escape HTML, process all md files
+# Then Jade files can include the HTML as plaintext
+markdown: $(build_md)
+
+src/%.html: src/%.md
+	@mkdir -p "$(@D)"
+	@cat $< | marked -o $@
 
 stylesheets:
 	@compass compile --sass-dir "src/stylesheets" --css-dir "build/stylesheets" --javascripts-dir "scripts" --images-dir "src/images"
