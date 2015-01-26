@@ -24,7 +24,6 @@
   h3 {
     color: $green-dark;
     font-family: 'pt_sansbold', sans-serif; 
-    font-size: 1.25em;
     letter-spacing: 3px;
     text-transform: uppercase;
   }
@@ -47,13 +46,12 @@
     text-transform: uppercase;
   }
 
-
   ul li:hover {
     background-color: $green;
   }
 }
 
-@media only screen and (max-width : 1024px) {
+@media only screen and (max-width : $medium) {
   .nav {
     float: none;
     height: auto;
@@ -68,10 +66,6 @@
     float: left;
     padding: 1.25em 1em 0 1em;
     text-align: left;
-    
-    img {
-      width: 4em;
-    }
   }
   
   .nav-content {
@@ -90,7 +84,7 @@
   }
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: $small) {
   .nav-avi {
     float: none;
     height: auto;
@@ -101,6 +95,7 @@
     float: none;
     height: auto;
     padding-bottom: 0;
+
     h3, p {
       margin-left: 20px;
     }
