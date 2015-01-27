@@ -3,6 +3,7 @@ html
     title My Site - #{title}
     block scripts
     link(href='/stylesheets/style.css' rel='stylesheet')
+    block styles
   body
     block nav
       div(class='nav')
@@ -14,9 +15,9 @@ html
           ul
             li
               a(href='/') About Me
-            li 
+            li
               a(href='/') Blog
-            li 
+            li
               a(href='/') Portfolio
       block content
 
