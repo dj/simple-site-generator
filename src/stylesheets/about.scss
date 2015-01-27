@@ -1,3 +1,5 @@
+@import "variables";
+
 #seattle-art-museum {
   float: left;
   max-width: 30%;
@@ -12,4 +14,13 @@
 
 .container {
   max-width: none;
+}
+
+@media only screen and (max-width : $small) {
+  #seattle-art-museum, .about-content {
+    display: block;
+    float: none;
+    max-width: 100%;
+    padding-left: 0;
+  }
 }
