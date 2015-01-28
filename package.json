@@ -2,6 +2,7 @@
   "name": "myproject",
   "devDependencies": {
     "browserify": "latest",
+    "jade": "^1.9.1",
     "jshint": "latest",
     "marked": "^0.3.3",
     "mocha": "latest",
