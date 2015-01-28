@@ -4,13 +4,13 @@ SHELL := /bin/bash
 # Use spaces instead of tabs
 .RECIPEPREFIX != ps
 
-src_html := $(shell find src -name '*.jade')
+src_html := $(shell find src -name '*.jade' -not -path 'src/scaffolds/*')
 build_html := $(patsubst src/%.jade, build/%.html, $(src_html))
 
 src_md	 := $(shell find src -name '*.md')
 build_md := $(shell echo $(src_md) | sed 's/.md/.html/')
 
-.PHONY: all build clean copy markdown jade stylesheets watch
+.PHONY: all build clean copy jade markdown post stylesheets watch
 
 all: clean copy markdown jade stylesheets
 
@@ -45,3 +45,15 @@ clean:
 # Run the build process whenever a file is changed in src/
 watch:
 	@watch make src
+
+# Blogging Tasks #
+# ============== #
+
+# Create new posts
+# ex:
+# 	make post NAME='post-title-with-hyphens'
+post:
+	@mkdir -p src/blog/$(NAME)
+	@mkdir -p src/scaffolds
+	@cp src/scaffolds/post/index.jade src/scaffolds/post/post.md src/blog/$(NAME)/
+
