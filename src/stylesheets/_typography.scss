@@ -65,10 +65,10 @@ html {
     padding: 0.5em 0;
     text-transform: uppercase;
   }
-  
+
   h3 {
     color: $green-dark;
-  } 
+  }
 
   p {
     max-width: 600px;
@@ -92,25 +92,23 @@ html {
   }
 }
 
-// Medium Styles
-@media only screen and (max-width: $medium) {
+@include mq-medium {
   html {
     h1 {
     }
 
     h2 {
     }
-    
+
     h3 {
-    } 
+    }
 
     p {
     }
   }
 }
 
-// Small Styles
-@media only screen and (max-width: $small) {
+@include mq-small {
   html {
     h1 {
       font-size: 1.25em;
@@ -120,10 +118,10 @@ html {
       font-family: $lato;
       font-size: 1em;
     }
- 
+
     h3 {
       font-size: 1em;
-    } 
+    }
 
     p {
       font-size: 0.8em;
@@ -148,13 +146,13 @@ html {
   }
 }
 
-  // Links
+// Links
 a {
   color: $green-dark;
-  text-decoration: none; 
+  text-decoration: none;
 }
+
 a:visited {
   color: $green-dark;
 }
-
 

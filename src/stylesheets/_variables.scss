@@ -1,6 +1,22 @@
-// Breakpoints
-$medium: 1024px;
-$small: 700px;
+// Media Queries
+@mixin mq-small {
+	@media only screen and (max-width: 700px),
+         only screen and (-webkit-min-device-pixel-ratio: 2),
+         only screen and (min--moz-device-pixel-ratio: 2),
+         only screen and (-moz-min-device-pixel-ratio: 2),
+         only screen and (-o-min-device-pixel-ratio: 2 / 1),
+         only screen and (min-device-pixel-ratio: 2),
+         only screen and (min-resolution: 192dpi),
+         only screen and (min-resolution: 2dppx) {
+    @content;
+	}
+}
+
+@mixin mq-medium {
+  @media only screen and (max-width: 1024px) {
+    @content;
+  }
+}
 
 // Colors
 $green-light: rgb(218, 226, 218);

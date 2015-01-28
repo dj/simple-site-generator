@@ -16,12 +16,10 @@
   }
 }
 
-@media only screen and (max-width : 1024px) {
+@include mq-medium {
   .container {
     padding: 20px 20px;
     margin-left: 0;
   }
 }
 
-@media only screen and (max-width: 700px) {
-}

@@ -16,7 +16,7 @@
   max-width: none;
 }
 
-@media only screen and (max-width : $small) {
+@include mq-small {
   #seattle-art-museum, .about-content {
     display: block;
     float: none;
