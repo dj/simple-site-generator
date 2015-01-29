@@ -8,9 +8,9 @@ src_html := $(shell find src -name '*.jade' -not -path 'src/scaffolds/*')
 build_html := $(patsubst src/%.jade, build/%.html, $(src_html))
 
 src_md	 := $(shell find src -name '*.md')
-build_md := $(shell echo $(src_md) | sed 's/.md/.html/')
+build_md := $(patsubst src/%.md, src/%.html, $(src_md))
 
-.PHONY: all build clean copy jade markdown post stylesheets watch
+.PHONY: all clean copy jade markdown post stylesheets watch
 
 all: clean copy markdown jade stylesheets
 
@@ -31,6 +31,7 @@ markdown: $(build_md)
 
 src/%.html: src/%.md
 	@mkdir -p "$(@D)"
+	@echo $(build_md)
 	@cat $< | marked -o $@
 
 stylesheets:
