@@ -55,5 +55,8 @@ watch:
 post:
 	@mkdir -p src/blog/$(NAME)
 	@mkdir -p src/scaffolds
-	@cp src/scaffolds/post/index.jade src/scaffolds/post/post.md src/blog/$(NAME)/
+	@cp src/scaffolds/post/index.jade src/scaffolds/post/post.md src/scaffolds/post/_blurb.md src/blog/$(NAME)/
+	# Add the blurb to the list of blog posts
+	@echo '    include blog/$(NAME)/_blurb.html' >> src/index.jade
+	@echo '    include $(NAME)/_blurb.html' >> src/blog/index.jade
 
