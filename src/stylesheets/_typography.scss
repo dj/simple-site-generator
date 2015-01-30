@@ -90,6 +90,15 @@ html {
       font-size: 0.8em;
     }
   }
+
+  .blog-index {
+    h2 {
+      font-weight: 300;
+    }
+
+    p {
+    }
+  }
 }
 
 @include mq-medium {

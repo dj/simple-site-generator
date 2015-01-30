@@ -31,7 +31,6 @@ markdown: $(build_md)
 
 src/%.html: src/%.md
 	@mkdir -p "$(@D)"
-	@echo $(build_md)
 	@cat $< | marked -o $@
 
 stylesheets:
@@ -45,7 +44,7 @@ clean:
 
 # Run the build process whenever a file is changed in src/
 watch:
-	@watch make src
+	@watch 'make stylesheets' src/stylesheets/ --wait=1
 
 # Blogging Tasks #
 # ============== #
