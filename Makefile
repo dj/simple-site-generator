@@ -16,7 +16,7 @@ all: clean copy markdown jade stylesheets
 
 # Copy files that don't need processing
 copy:
-	@cp -r src/fonts src/img build/
+	@cp -r src/fonts src/img src/resume.pdf build/
 	@echo 'Files copied...'
 
 jade: $(build_html)
